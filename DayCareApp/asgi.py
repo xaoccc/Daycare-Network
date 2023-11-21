@@ -1,5 +1,5 @@
 """
-ASGI config for fruitipediaApp project.
+ASGI config for DayCareApp project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 

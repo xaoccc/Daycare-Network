@@ -1,5 +1,5 @@
 """
-WSGI config for fruitipediaApp project.
+WSGI config for DayCareApp project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

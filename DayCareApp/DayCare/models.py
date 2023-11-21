@@ -37,6 +37,8 @@ class Location(models.Model):
     )
 
     location_name = models.CharField(choices=NEIGHBOURHOODS)
+    hospitals = models.BooleanField()
+    schools = models.BooleanField()
 
 class Offers(Location, models.Model):
     min_rating = models.DecimalField(max_digits=3, decimal_places=1, validators=[
@@ -56,6 +58,12 @@ class Child(Person):
     has_special_needs = models.BooleanField(default=False)
 
 class Parent(Person):
+    GENDERS = (
+        ("Male", "Male"),
+        ("Female", "Female"),
+        ("Other", "Other"),
+    )
+
     age = models.PositiveIntegerField(validators=[
         MinValueValidator(18, "Parent cannot be younger than 18!"),
         MaxValueValidator(100, "Are you a vampire? Maximum age should be 100 years old!")
@@ -66,6 +74,7 @@ class Parent(Person):
     ])
     parent_offer = models.OneToOneField(Offers, on_delete=models.CASCADE)
     parent_child = models.ForeignKey(Child, on_delete=models.CASCADE)
+    gender = models.CharField(choices=GENDERS)
 
 
 class Profile(models.Model):

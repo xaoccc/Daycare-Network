@@ -1,5 +1,6 @@
-from django.core.validators import MinLengthValidator, MinValueValidator, MaxValueValidator
 from django.db import models
+from django.core.validators import MinLengthValidator, MinValueValidator, MaxValueValidator
+
 
 
 # Create your models here.

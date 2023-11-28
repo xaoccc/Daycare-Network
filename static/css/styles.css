@@ -30,6 +30,12 @@ button {
     border-width: inherit
 }
 
+.errorlist {
+    list-style-type: NONE;
+    padding-inline-start: 10px;
+    color: #990000;
+}
+
 header {
     background-color: #333;
     color: #fff;

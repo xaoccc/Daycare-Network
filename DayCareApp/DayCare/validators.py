@@ -10,4 +10,7 @@ def password_validator(value):
     elif value.lower() == value:
         raise ValidationError("Password must contain at least 1 uppercase character")
 
+    elif len(value) < 8:
+        raise ValidationError("Password must be at least 8 characters long")
+
     return value

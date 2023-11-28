@@ -67,7 +67,7 @@ class Parent(Person):
 
     age = models.PositiveIntegerField(validators=[
         MinValueValidator(18, "Parent cannot be younger than 18!"),
-        MaxValueValidator(100, "Are you a vampire? Maximum age should be 100 years old!")
+        MaxValueValidator(100, "Maximum age should be 100 years old!")
     ])
     rating = models.DecimalField(max_digits=2, decimal_places=1, default=0, blank=True, null=True, validators=[
         MinValueValidator(0, "Rating cannot be less than 0!"),
@@ -79,7 +79,7 @@ class Parent(Person):
 
 
 class Profile(models.Model):
-    username = models.CharField(max_length=30)
+    username = models.CharField(max_length=30, unique=True)
     password = models.CharField(max_length=30, validators=[password_validator])
 
 

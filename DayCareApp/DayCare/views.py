@@ -23,11 +23,13 @@ def register(request):
             password = form.cleaned_data['password']
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
+            age = form.cleaned_data['age']
+            gender = form.cleaned_data['gender']
 
             profile = Profile(username=username, password=password)
             profile.save()
 
-            parent = Parent(first_name=first_name, last_name=last_name)
+            parent = Parent(first_name=first_name, last_name=last_name, age=age, gender=gender)
             parent.save()
 
             return redirect('index')

@@ -30,6 +30,14 @@ button {
     border-width: inherit
 }
 
+#id_gender {
+    padding: 5px;
+}
+
+#id_gender * {
+    margin: 5px;
+}
+
 .errorlist {
     list-style-type: NONE;
     padding-inline-start: 10px;

@@ -73,8 +73,8 @@ class Parent(Person):
         MinValueValidator(0, "Rating cannot be less than 0!"),
         MaxValueValidator(10, "Rating cannot be more than 10!")
     ])
-    parent_offer = models.OneToOneField(Offers, on_delete=models.CASCADE)
-    parent_child = models.ForeignKey(Child, on_delete=models.CASCADE)
+    parent_offer = models.OneToOneField(Offers, blank=True, null=True, on_delete=models.CASCADE)
+    parent_child = models.ForeignKey(Child, blank=True, null=True, on_delete=models.CASCADE)
     gender = models.CharField(choices=GENDERS)
 
 

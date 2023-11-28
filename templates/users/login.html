@@ -1,0 +1,17 @@
+{% extends 'common/base.html' %}
+{% block content %}
+    <section class="login-user">
+        <form method="POST" action="{% url 'login' %}">
+            <fieldset>
+                <legend>Log in:</legend>
+                <div class="container">
+                    {% csrf_token %}
+                    {{ form }}
+
+                    <!-- Button for Adding New User -->
+                    <button class="log-user" type="submit">Create User</button>
+                </div>
+            </fieldset>
+        </form>
+    </section>
+{% endblock %}

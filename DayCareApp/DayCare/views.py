@@ -39,3 +39,8 @@ def register(request):
     return render(request, 'users/register.html', context)
 
 
+def login(request):
+    # create login form, validate forms, create context
+    return render(request, 'users/login.html')
+
+

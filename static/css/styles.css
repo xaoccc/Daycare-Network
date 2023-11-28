@@ -20,9 +20,9 @@ body {
             text-decoration: none;
         }
 
-        #login-register-panel {
+        #login-register-panel, .register-user {
             margin: auto;
-            width: 50%;
+            width: 30%;
             padding: 20px;
             background-color: #fff;
             border-radius: 8px;
@@ -47,7 +47,7 @@ body {
         }
 
         button {
-            background-color: #4CAF50;
+            background-color: blue;
             color: #fff;
             padding: 10px;
             border: none;

@@ -1,11 +1,41 @@
-from django.shortcuts import render
-from django.shortcuts import render, redirect
 
+from django.shortcuts import render, redirect
+from DayCareApp.DayCare.models import Profile, Parent
+from DayCareApp.DayCare.forms import RegisterUserForm
 
 # Create your views here.
 
 
 def index(request):
     return render(request, 'common/index.html')
+
+
+
+def register(request):
+    if request.method == 'GET':
+        form = RegisterUserForm()
+
+    else:
+        form = RegisterUserForm(request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+
+            profile = Profile(username=username, password=password)
+            profile.save()
+
+            parent = Parent(first_name=first_name, last_name=last_name)
+            parent.save()
+
+            return redirect('index')
+
+    context = {
+        'form': form
+
+    }
+    return render(request, 'users/register.html', context)
 
 

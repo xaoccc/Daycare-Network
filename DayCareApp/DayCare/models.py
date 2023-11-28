@@ -69,7 +69,7 @@ class Parent(Person):
         MinValueValidator(18, "Parent cannot be younger than 18!"),
         MaxValueValidator(100, "Are you a vampire? Maximum age should be 100 years old!")
     ])
-    rating = models.DecimalField(max_digits=2, decimal_places=1, default=0, validators=[
+    rating = models.DecimalField(max_digits=2, decimal_places=1, default=0, blank=True, null=True, validators=[
         MinValueValidator(0, "Rating cannot be less than 0!"),
         MaxValueValidator(10, "Rating cannot be more than 10!")
     ])

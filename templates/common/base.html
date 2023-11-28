@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=\, initial-scale=1.0"/>
+    <title>Daycare Network</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+</head>
+<body>
+
+    <header>
+        <a href="{% url 'index' %}" id="home-button">Home</a>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+    <!-- Footer -->
+    <footer>
+
+    </footer>
+    <!-- End Footer -->
+
+</body>
+</html>

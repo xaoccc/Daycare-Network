@@ -1,47 +1,52 @@
-{% load static %}
+{% extends 'common/base.html' %}
+{% block content %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=\, initial-scale=1.0"/>
-    <title>Daycare Network</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
-</head>
-<body>
+    <section class="register-user">
 
-    <header>
-        <a href="#" id="home-button">Home</a>
-    </header>
+        <fieldset>
+            <legend>Register new user:</legend>
+            <div class="container">
+                <a href="{% url 'register' %}">Create User</a>
+            </div>
+        </fieldset>
 
-    <div id="login-register-panel">
-        <div id="login-form">
-            <h2>Login</h2>
-            <form action="login.php" method="post">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
+    </section>
 
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
 
-                <button type="submit">Login</button>
-            </form>
-        </div>
 
-        <div id="register-form">
-            <h2>Register</h2>
-            <form action="register.php" method="post">
-                <label for="new-username">Username:</label>
-                <input type="text" id="new-username" name="new-username" required>
 
-                <label for="new-password">Password:</label>
-                <input type="password" id="new-password" name="new-password" required>
+<!--    <div id="login-register-panel">-->
+<!--        <div id="login-form">-->
+<!--            <h2>Login</h2>-->
 
-                <button type="submit">Register</button>
-            </form>
-        </div>
-    </div>
 
-</body>
-</html>
+
+
+
+<!--            <form action="login.php" method="post">-->
+
+
+<!--                <label for="username">Username:</label>-->
+<!--                <input type="text" id="username" name="username" required>-->
+
+<!--                <label for="password">Password:</label>-->
+<!--                <input type="password" id="password" name="password" required>-->
+
+<!--                <button type="submit">Login</button>-->
+<!--            </form>-->
+<!--        </div>-->
+
+<!--        <div id="register-form">-->
+<!--            <h2>Register</h2>-->
+<!--            <form action="register.php" method="post">-->
+<!--                <label for="new-username">Username:</label>-->
+<!--                <input type="text" id="new-username" name="new-username" required>-->
+
+<!--                <label for="new-password">Password:</label>-->
+<!--                <input type="password" id="new-password" name="new-password" required>-->
+
+<!--                <button type="submit">Register</button>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+{% endblock %}

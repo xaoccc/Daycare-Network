@@ -1,60 +1,73 @@
 body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FAEBD7;
+}
+.container a {
+    padding: 18px 10px;
+    margin: 2px;
+}
+.container a, button {
+    color: #483D8B;
+    display: block;
+    text-decoration: NONE;
+    background-color: aliceblue;
+    border-radius: 10px;
+    border-width: 0px;
+    cursor: pointer;
+}
+button {
+    padding: 10px;
+}
 
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            text-align: left;
-        }
+.container a:hover, button:hover {
+    background-color: #00294d;
+    color: aliceblue;
+}
 
-        #home-button {
-            display: inline-block;
-            padding: 5px 10px;
-            background-color: #4CAF50;
-            color: #fff;
-            text-decoration: none;
-        }
+.register-user fieldset {
+    border-width: inherit
+}
 
-        #login-register-panel, .register-user {
-            margin: auto;
-            width: 30%;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 50px;
-        }
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+}
 
-        #login-form, #register-form {
-            margin-bottom: 20px;
-        }
+#home-button {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    text-decoration: none;
+}
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
+#login-register-panel, .register-user {
+    margin: auto;
+    width: 30%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+}
 
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-        }
+#login-form, #register-form {
+    margin-bottom: 20px;
+}
 
-        button {
-            background-color: blue;
-            color: #fff;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+label {
+    display: block;
+    margin-bottom: 8px;
+}
 
-        button:hover {
-            background-color: #45a049;
-        }
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+

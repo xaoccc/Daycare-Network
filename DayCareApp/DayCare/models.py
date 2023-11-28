@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.validators import MinLengthValidator, MinValueValidator, MaxValueValidator
-
+from DayCareApp.DayCare.validators import password_validator
 
 
 # Create your models here.
@@ -80,7 +80,7 @@ class Parent(Person):
 
 class Profile(models.Model):
     username = models.CharField(max_length=30)
-    password = models.CharField(max_length=30)
+    password = models.CharField(max_length=30, validators=[password_validator])
 
 
 

@@ -19,7 +19,7 @@ def name_validator(value):
     if not value.isalpha():
         raise ValidationError("A name can contain only alphabetic characters")
 
-    if value[0].upper != value[0]:
+    if value[0].upper() != value[0]:
         raise ValidationError("A name should start with a capital letter")
 
 

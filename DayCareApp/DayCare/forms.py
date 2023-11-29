@@ -1,9 +1,7 @@
 from django import forms
-from django.contrib.auth.hashers import check_password
 from django.forms.widgets import PasswordInput
 from django.core.validators import MinLengthValidator, MinValueValidator
 from DayCareApp.DayCare.validators import password_validator, name_validator
-from django.core.exceptions import ValidationError
 
 
 class RegisterUserForm(forms.Form):
@@ -30,6 +28,10 @@ class RegisterUserForm(forms.Form):
             raise forms.ValidationError("Passwords do not match")
 
         return cleaned_data
+
+class LoginForm(forms.Form):
+    username = forms.CharField(label='Username', required=True)
+    password = forms.CharField(label='Password', required=True, widget=PasswordInput())
 
 
 

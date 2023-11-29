@@ -1,15 +1,12 @@
-
+from django.contrib.auth import login, authenticate
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from DayCareApp.DayCare.models import Profile, Parent
-from DayCareApp.DayCare.forms import RegisterUserForm
-from django.core.exceptions import ValidationError
-# Create your views here.
+from DayCareApp.DayCare.forms import RegisterUserForm, LoginForm
 
 
 def index(request):
     return render(request, 'common/index.html')
-
-
 
 def register(request):
     if request.method == 'GET':
@@ -38,11 +35,32 @@ def register(request):
         'form': form
 
     }
-    return render(request, 'users/register.html', context)
+    return render(request, 'registration/register.html', context)
 
 
 def login(request):
-    # create login form, validate forms, create context
-    return render(request, 'users/login.html')
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        # to repair authentication and hash password
+        user = Profile.objects.get(username=username, password=password)
+
+        if user is not None:
+            return redirect('index')
+        else:
+            return HttpResponse('Invalid login')
+
+    else:
+        form = LoginForm()
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'registration/login.html', context)
+
+
+
 
 

@@ -44,13 +44,6 @@ button {
     color: #990000;
 }
 
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    text-align: left;
-}
-
 #home-button {
     display: inline-block;
     padding: 5px 10px;

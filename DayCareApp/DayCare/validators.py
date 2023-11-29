@@ -4,13 +4,22 @@ def password_validator(value):
     if value.isalpha():
         raise ValidationError("Password must contain at least 1 digit")
 
-    elif value.isdigit():
+    if value.isdigit():
         raise ValidationError("Password must contain at least 1 alphabetic character")
 
-    elif value.lower() == value:
+    if value.lower() == value:
         raise ValidationError("Password must contain at least 1 uppercase character")
 
-    elif len(value) < 8:
-        raise ValidationError("Password must be at least 8 characters long")
+    if value.upper() == value:
+        raise ValidationError("Password must contain at least 1 lowercase character")
 
     return value
+
+def name_validator(value):
+    if not value.isalpha():
+        raise ValidationError("A name can contain only alphabetic characters")
+
+    if value[0].upper != value[0]:
+        raise ValidationError("A name should start with a capital letter")
+
+

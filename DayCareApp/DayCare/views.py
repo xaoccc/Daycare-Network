@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect
 from DayCareApp.DayCare.models import Profile, Parent
 from DayCareApp.DayCare.forms import RegisterUserForm
-
+from django.core.exceptions import ValidationError
 # Create your views here.
 
 

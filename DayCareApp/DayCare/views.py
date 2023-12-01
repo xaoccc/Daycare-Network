@@ -4,9 +4,10 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from DayCareApp.DayCare.models import Profile, Parent
 from DayCareApp.DayCare.forms import RegisterUserForm, LoginForm
+from django.contrib.auth.hashers import make_password, check_password
 
 
-def index(request,):
+def index(request):
     return render(request, 'common/index.html')
 
 def login_index(request, profile_id):
@@ -53,24 +54,32 @@ def login(request):
         username = request.POST['username']
         password = request.POST['password']
 
-        # hash password
         try:
-            profile = Profile.objects.get(username=username, password=password)
+            profile = Profile.objects.get(username=username)
+
+            if check_password(password, profile.password):
+
+                profile.is_authenticated = True
+                profile.save()
+
+                return redirect('login_index', profile_id=profile.id)
+
+            else:
+                form = LoginForm()
+                context = {
+                    'form': form,
+                    'error_message': 'Incorrect password. Try again.',
+                }
+                return render(request, 'registration/login.html', context)
 
         except Profile.DoesNotExist:
             form = LoginForm()
             context = {
                 'form': form,
-                'error_message': 'Invalid login. Please try again.',
+                'error_message': 'No such user name. Please try again.',
             }
             return render(request, 'registration/login.html', context)
 
-        if profile is not None:
-            profile.is_authenticated = True
-            profile.save()
-            return redirect('login_index', profile_id=profile.id)
-        else:
-            HttpResponse('Invalid login')
 
     else:
         form = LoginForm()
@@ -80,6 +89,22 @@ def login(request):
     }
 
     return render(request, 'registration/login.html', context)
+
+
+def log_out(request):
+    user_id = request.session.get('id')
+
+    if user_id:
+        try:
+            profile = Profile.objects.get(id=user_id)
+            profile.is_authenticated = False
+            profile.save()
+
+        except Profile.DoesNotExist:
+            pass
+    request.session.clear()
+    return redirect('index')
+
 
 
 

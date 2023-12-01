@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinLengthValidator, MinValueValidator, MaxValueValidator
 from DayCareApp.DayCare.validators import password_validator
+from django.contrib.auth.hashers import make_password
 
 
 # Create your models here.
@@ -78,10 +79,25 @@ class Parent(Person):
     gender = models.CharField(choices=GENDERS)
 
 
+
+
 class Profile(models.Model):
     username = models.CharField(max_length=30, unique=True)
-    password = models.CharField(max_length=30, validators=[password_validator])
+    password = models.CharField(validators=[password_validator])
     is_authenticated = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        if not self.password.startswith(('pbkdf2_sha256$', 'bcrypt')):
+            self.password = make_password(self.password)
+        super(Profile, self).save(*args, **kwargs)
+
+    def logout(self):
+
+        self.is_authenticated = False
+        print("Before save:", self.is_authenticated)
+        self.save()
+        print("After save:", self.is_authenticated)
+
 
 
 

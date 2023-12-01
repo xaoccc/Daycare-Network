@@ -1,12 +1,22 @@
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import User
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from DayCareApp.DayCare.models import Profile, Parent
 from DayCareApp.DayCare.forms import RegisterUserForm, LoginForm
 
 
-def index(request):
+def index(request,):
     return render(request, 'common/index.html')
+
+def login_index(request, profile_id):
+    profile = get_object_or_404(Profile, id=profile_id)
+
+    context = {
+        'profile': profile,
+    }
+
+    return render(request, 'common/index.html', context)
 
 def register(request):
     if request.method == 'GET':
@@ -43,19 +53,30 @@ def login(request):
         username = request.POST['username']
         password = request.POST['password']
 
-        # to repair authentication and hash password
-        user = Profile.objects.get(username=username, password=password)
+        # hash password
+        try:
+            profile = Profile.objects.get(username=username, password=password)
 
-        if user is not None:
-            return redirect('index')
+        except Profile.DoesNotExist:
+            form = LoginForm()
+            context = {
+                'form': form,
+                'error_message': 'Invalid login. Please try again.',
+            }
+            return render(request, 'registration/login.html', context)
+
+        if profile is not None:
+            profile.is_authenticated = True
+            profile.save()
+            return redirect('login_index', profile_id=profile.id)
         else:
-            return HttpResponse('Invalid login')
+            HttpResponse('Invalid login')
 
     else:
         form = LoginForm()
 
     context = {
-        'form': form
+        'form': form,
     }
 
     return render(request, 'registration/login.html', context)

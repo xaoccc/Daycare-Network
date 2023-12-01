@@ -18,8 +18,24 @@
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
             </li>
+            {% if profile.is_authenticated %}
+
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Settings</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Log Out</a>
+            </li>
+
+            {% endif %}
         </ul>
+
     </nav>
+        {% if error_message %}
+            <p class="error">{{ error_message }}</p>
+        {% endif %}
+
+
         {% block content %}
         {% endblock %}
     <footer>

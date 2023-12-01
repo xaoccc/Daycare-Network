@@ -81,6 +81,7 @@ class Parent(Person):
 class Profile(models.Model):
     username = models.CharField(max_length=30, unique=True)
     password = models.CharField(max_length=30, validators=[password_validator])
+    is_authenticated = models.BooleanField(default=False)
 
 
 

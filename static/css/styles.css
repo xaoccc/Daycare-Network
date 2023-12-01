@@ -30,6 +30,10 @@ button {
     border-width: inherit
 }
 
+.home-legend {
+    text-align: center;
+}
+
 #id_gender {
     padding: 5px;
 }
@@ -42,6 +46,11 @@ button {
     list-style-type: NONE;
     padding-inline-start: 10px;
     color: #990000;
+}
+.error {
+    margin-top: 20px;
+    color: red;
+    text-align: center;
 }
 
 #home-button {

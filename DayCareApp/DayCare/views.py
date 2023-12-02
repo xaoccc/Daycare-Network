@@ -54,12 +54,11 @@ def login_view(request):
         username = request.POST['username']
         password = request.POST['password']
 
-        user = authenticate(request, username=username)
-        if user is not None:
+        try:
             profile = Profile.objects.get(username=username)
             if check_password(password, profile.password):
-                profile.is_authenticated = True
-                login(request, user)
+
+                login(request, profile)
                 return redirect('login_index', profile_id=profile.id)
 
             else:
@@ -69,7 +68,8 @@ def login_view(request):
                     'error_message': 'Incorrect password. Try again.',
                 }
                 return render(request, 'registration/login.html', context)
-        else:
+
+        except Profile.DoesNotExist:
             form = LoginForm()
             context = {
                 'form': form,

@@ -9,7 +9,7 @@ Steps in development:
 3.2. Make migrations and add them to the database  
 4. Create the basic templates
 5. Create custom forms in forms.py and make input validations (the same as for the models)
-6. Create views and forms and make corresponding changes to the rest of the app: 
+6. Create views and forms and make corresponding changes to the rest of the app:   
 6.1. Create register new user view  
 6.2. Create login view and authentication  
 6.3. Create logout view  

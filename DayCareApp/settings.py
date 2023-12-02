@@ -39,9 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'DayCareApp.DayCare',
-    'crispy_forms',
-    'crispy_bootstrap5',
+    'DayCareApp.DayCare'
 ]
 
 MIDDLEWARE = [

@@ -1,4 +1,4 @@
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -49,19 +49,17 @@ def register(request):
     return render(request, 'registration/register.html', context)
 
 
-def login(request):
+def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
 
-        try:
+        user = authenticate(request, username=username)
+        if user is not None:
             profile = Profile.objects.get(username=username)
-
             if check_password(password, profile.password):
-
                 profile.is_authenticated = True
-                profile.save()
-
+                login(request, user)
                 return redirect('login_index', profile_id=profile.id)
 
             else:
@@ -71,8 +69,7 @@ def login(request):
                     'error_message': 'Incorrect password. Try again.',
                 }
                 return render(request, 'registration/login.html', context)
-
-        except Profile.DoesNotExist:
+        else:
             form = LoginForm()
             context = {
                 'form': form,
@@ -80,7 +77,33 @@ def login(request):
             }
             return render(request, 'registration/login.html', context)
 
-
+    #     try:
+    #         profile = Profile.objects.get(username=username)
+    #
+    #         if check_password(password, profile.password):
+    #
+    #             profile.is_authenticated = True
+    #             profile.save()
+    #
+    #             return redirect('login_index', profile_id=profile.id)
+    #
+    #         else:
+    #             form = LoginForm()
+    #             context = {
+    #                 'form': form,
+    #                 'error_message': 'Incorrect password. Try again.',
+    #             }
+    #             return render(request, 'registration/login.html', context)
+    #
+    #     except Profile.DoesNotExist:
+    #         form = LoginForm()
+    #         context = {
+    #             'form': form,
+    #             'error_message': 'No such user name. Please try again.',
+    #         }
+    #         return render(request, 'registration/login.html', context)
+    #
+    #
     else:
         form = LoginForm()
 
@@ -91,18 +114,22 @@ def login(request):
     return render(request, 'registration/login.html', context)
 
 
+# def log_out(request):
+#     user_id = request.session.get('id')
+#
+#     if user_id:
+#         try:
+#             profile = Profile.objects.get(id=user_id)
+#             profile.is_authenticated = False
+#             profile.save()
+#
+#         except Profile.DoesNotExist:
+#             pass
+#     request.session.clear()
+#     return redirect('index')
+
 def log_out(request):
-    user_id = request.session.get('id')
-
-    if user_id:
-        try:
-            profile = Profile.objects.get(id=user_id)
-            profile.is_authenticated = False
-            profile.save()
-
-        except Profile.DoesNotExist:
-            pass
-    request.session.clear()
+    logout(request)
     return redirect('index')
 
 

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.validators import MinLengthValidator, MinValueValidator, MaxValueValidator
 from DayCareApp.DayCare.validators import password_validator
@@ -81,22 +82,19 @@ class Parent(Person):
 
 
 
-class Profile(models.Model):
+class Profile(AbstractUser):
     username = models.CharField(max_length=30, unique=True)
     password = models.CharField(validators=[password_validator])
-    is_authenticated = models.BooleanField(default=False)
+
+    USERNAME_FIELD = 'username'
+
+    REQUIRED_FIELDS = []
 
     def save(self, *args, **kwargs):
-        if not self.password.startswith(('pbkdf2_sha256$', 'bcrypt')):
-            self.password = make_password(self.password)
+        self.password = make_password(self.password)
         super(Profile, self).save(*args, **kwargs)
 
-    def logout(self):
 
-        self.is_authenticated = False
-        print("Before save:", self.is_authenticated)
-        self.save()
-        print("After save:", self.is_authenticated)
 
 
 

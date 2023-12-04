@@ -10,9 +10,12 @@ def index(request):
 
 def login_index(request, profile_id):
     profile = get_object_or_404(Profile, id=profile_id)
+    parent = get_object_or_404(Parent, id=profile_id)
 
     context = {
         'profile': profile,
+        'user': request.user,
+        'name': parent.first_name
     }
 
     return render(request, 'common/index.html', context)

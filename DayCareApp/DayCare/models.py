@@ -60,6 +60,19 @@ class Child(Person):
     ])
     has_special_needs = models.BooleanField(default=False)
 
+class Profile(AbstractUser):
+    username = models.CharField(max_length=30, unique=True)
+    password = models.CharField(validators=[password_validator])
+
+    USERNAME_FIELD = 'username'
+
+    REQUIRED_FIELDS = []
+
+    def save(self, *args, **kwargs):
+        self.password = make_password(self.password)
+        super(Profile, self).save(*args, **kwargs)
+
+
 class Parent(Person):
     GENDERS = (
         ("Male", "Male"),
@@ -78,21 +91,12 @@ class Parent(Person):
     parent_offer = models.OneToOneField(Offers, blank=True, null=True, on_delete=models.CASCADE)
     parent_child = models.ForeignKey(Child, blank=True, null=True, on_delete=models.CASCADE)
     gender = models.CharField(choices=GENDERS)
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
 
 
 
 
-class Profile(AbstractUser):
-    username = models.CharField(max_length=30, unique=True)
-    password = models.CharField(validators=[password_validator])
 
-    USERNAME_FIELD = 'username'
-
-    REQUIRED_FIELDS = []
-
-    def save(self, *args, **kwargs):
-        self.password = make_password(self.password)
-        super(Profile, self).save(*args, **kwargs)
 
 
 

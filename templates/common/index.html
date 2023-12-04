@@ -3,11 +3,24 @@
 
     <section class="register-user">
         <fieldset>
-            <legend class="home-legend">Welcome!</legend>
-            <div class="container">
-                <a href="{% url 'register' %}">Create New User</a>
-                <a href="{% url 'login' %}">Log In</a>
-            </div>
+            {% if profile.is_authenticated %}
+                <legend class="home-legend">Welcome, {{ name }}</legend>
+            {% else %}
+                <legend class="home-legend">Welcome!</legend>
+            {% endif %}
+
+            {% if profile.is_authenticated %}
+                <div class="container">
+                    <a href="#">Find someone to look after your child</a>
+                    <a href="#">Find daycare job offers</a>
+                </div>
+
+            {% else %}
+                <div class="container">
+                    <a href="{% url 'register' %}">Create New User</a>
+                    <a href="{% url 'login' %}">Log In</a>
+                </div>
+            {% endif %}
         </fieldset>
     </section>
 

@@ -12,6 +12,9 @@ def login_index(request, profile_id):
     profile = get_object_or_404(Profile, id=profile_id)
     parent = get_object_or_404(Parent, id=profile_id)
 
+    request.session['profile_id'] = profile.id
+    request.session['parent_id'] = parent.id
+
     context = {
         'profile': profile,
         'user': request.user,
@@ -92,7 +95,22 @@ def log_out(request):
     return redirect('index')
 
 
+def settings(request):
 
+    profile_id = request.session.get('profile_id')
+    parent_id = request.session.get('parent_id')
+
+
+    profile = get_object_or_404(Profile, id=profile_id)
+    parent = get_object_or_404(Parent, id=parent_id)
+
+
+    context = {
+        'profile': profile,
+        'parent': parent
+    }
+
+    return render(request, 'common/settings.html', context)
 
 
 

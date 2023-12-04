@@ -1,0 +1,20 @@
+{% extends 'common/base.html' %}
+{% block content %}
+
+    <section class="register-user">
+        <fieldset>
+
+            <legend class="home-legend"></legend>
+            <div class="container">
+                <p>Username: {{ profile.username }}</p>
+                <p>First name: {{ parent.first_name }}</p>
+                <a href="#">Change username</a>
+                <a href="#">Change password</a>
+                <a href="#">Update personal info</a>
+            </div>
+
+
+        </fieldset>
+    </section>
+
+{% endblock %}

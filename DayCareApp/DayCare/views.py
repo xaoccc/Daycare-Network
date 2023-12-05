@@ -62,7 +62,7 @@ def login_view(request):
             profile = Profile.objects.get(username=username)
             if check_password(password, profile.password):
 
-                login(request, profile)
+                login(request, profile, backend='django.contrib.auth.backends.ModelBackend')
                 return redirect('login_index', profile_id=profile.id)
 
             else:
@@ -111,6 +111,7 @@ def settings(request):
     }
 
     return render(request, 'common/settings.html', context)
+
 
 
 

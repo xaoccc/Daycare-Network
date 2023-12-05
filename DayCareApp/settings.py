@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-SITE_ID = 1
+SITE_ID = 2
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'DayCareApp.DayCare',
     'django.contrib.sites',
     'allauth',
+    'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google'
 ]
@@ -62,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware'
 ]
 
 ROOT_URLCONF = 'DayCareApp.urls'
@@ -70,7 +72,7 @@ AUTH_USER_MODEL = "DayCare.Profile"
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.accounts.auth_backends.AuthenticationBackend'
+    'allauth.socialaccount.auth_backends.AuthenticationBackend'
 ]
 
 LOGIN_REDIRECT_URL = "/"

@@ -33,6 +33,10 @@ class LoginForm(forms.Form):
     username = forms.CharField(label='Username', required=True)
     password = forms.CharField(label='Password', required=True, widget=PasswordInput())
 
+class UsernameEditForm(forms.Form):
+    username = forms.CharField(label='Enter new username:', required=True)
+
+
 
 
 

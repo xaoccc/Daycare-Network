@@ -15,8 +15,7 @@
                     <a href="{% url 'register' %}">Create New User</a>
                     <a href="{% url 'login' %}">Log In</a>
                     {% load socialaccount %}
-                        <h3></h3>
-                        <a href="{% provider_login_url 'google' %}?next=/">Google Login</a>
+                    <a href="{% provider_login_url 'google' %}?next=/">Google Login</a>
                 </div>
             {% endif %}
 

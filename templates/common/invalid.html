@@ -1,0 +1,12 @@
+{% extends 'common/base.html' %}
+{% block content %}
+
+    <section class="register-user">
+        <legend class="home-legend">Change Username</legend>
+            <div class="container">
+              <p>Username {{ profile.username }} already exists. Please enter a new username!</p>
+                <a href="{% url 'username_edit' %}">Choose a different username.</a>
+            </div>
+    </section>
+
+{% endblock %}

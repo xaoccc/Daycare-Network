@@ -19,6 +19,16 @@
                 </div>
             {% endif %}
 
+            {% if messages %}
+                <ul class="messages">
+                {% for message in messages %}
+                    <li class="message">
+                        {{ message }}
+                    </li>
+                {% endfor %}
+                 </ul>
+{% endif %}
+
 
         </fieldset>
     </section>

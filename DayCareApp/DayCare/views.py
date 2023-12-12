@@ -1,7 +1,8 @@
 from django.contrib.auth import login, logout
+from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from DayCareApp.DayCare.models import Profile, Parent
-from DayCareApp.DayCare.forms import RegisterUserForm, LoginForm, UsernameEditForm
+from DayCareApp.DayCare.forms import RegisterUserForm, LoginForm, UsernameEditForm, PasswordEditForm
 from django.contrib.auth.hashers import check_password
 
 
@@ -130,9 +131,9 @@ def username_edit(request):
             username = form.cleaned_data['username']
 
             if username not in Profile.objects.values_list('username', flat=True):
-                profile.username = username
-                profile.save()
-                return redirect('index')
+                Profile.objects.filter(username=profile.username).update(username=username)
+                messages.success(request, 'Username updated successfully.')
+                return redirect('login_index', profile_id=profile.id)
             else:
                 return redirect('invalid')
 
@@ -140,8 +141,33 @@ def username_edit(request):
         'profile': profile,
         'form': form,
     }
-
     return render(request, 'common/username_edit.html', context)
+
+
+def password_edit(request):
+    profile_id = request.session.get('profile_id')
+    profile = get_object_or_404(Profile, id=profile_id)
+
+    if request.method == 'GET':
+        form = PasswordEditForm()
+
+    else:
+        form = PasswordEditForm(request.POST)
+
+        if form.is_valid():
+            password = form.cleaned_data['password']
+            profile.update(password=password)
+            messages.success(request, 'Password updated successfully.')
+            return redirect('login_index', profile_id=profile.id)
+
+    context = {
+        'profile': profile,
+        'form': form,
+    }
+
+    return render(request, 'common/password_edit.html', context)
+
+
 
 def invalid(request):
     profile_id = request.session.get('profile_id')

@@ -1,7 +1,9 @@
 from django import forms
+from django.forms import ModelForm
 from django.forms.widgets import PasswordInput
 from django.core.validators import MinLengthValidator, MinValueValidator
 from DayCareApp.DayCare.validators import password_validator, name_validator
+from DayCareApp.DayCare.models import Profile
 
 
 class RegisterUserForm(forms.Form):
@@ -33,11 +35,13 @@ class LoginForm(forms.Form):
     username = forms.CharField(label='Username', required=True)
     password = forms.CharField(label='Password', required=True, widget=PasswordInput())
 
+
 class UsernameEditForm(forms.Form):
     username = forms.CharField(label='Enter new username:', required=True)
 
 
-
+class PasswordEditForm(forms.Form):
+    password = forms.CharField(label='Enter new password:', required=True, widget=PasswordInput())
 
 
 

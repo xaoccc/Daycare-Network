@@ -41,7 +41,7 @@ class UsernameEditForm(forms.Form):
 
 
 class PasswordEditForm(forms.Form):
-    password = forms.CharField(label='Enter new password:', required=True, widget=PasswordInput())
+    password = forms.CharField(label='Enter new password:', required=True, widget=PasswordInput(), validators=[MinLengthValidator(8, "Password must be at least 8 characters long!"), password_validator])
 
 
 

@@ -20,16 +20,14 @@
             {% endif %}
 
             {% if messages %}
-                <ul class="messages">
+                <div class="messages">
                 {% for message in messages %}
-                    <li class="message">
+                    <p class="message">
                         {{ message }}
-                    </li>
+                    </p>
                 {% endfor %}
-                 </ul>
-{% endif %}
-
-
+                 </div>
+            {% endif %}
         </fieldset>
     </section>
 

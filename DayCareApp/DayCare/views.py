@@ -9,20 +9,6 @@ from django.contrib.auth.hashers import check_password, make_password
 def index(request):
     return render(request, 'common/index.html')
 
-def login_index(request, profile_id):
-    profile = get_object_or_404(Profile, id=profile_id)
-    parent = get_object_or_404(Parent, profile_id=profile_id)
-
-    request.session['profile_id'] = profile.id
-    request.session['parent_id'] = parent.id
-
-    context = {
-        'profile': profile,
-        'user': request.user,
-        'name': parent.first_name
-    }
-
-    return render(request, 'common/index.html', context)
 
 def register(request):
     if request.method == 'GET':
@@ -96,6 +82,23 @@ def login_view(request):
     }
 
     return render(request, 'registration/login.html', context)
+
+
+def login_index(request, profile_id):
+    profile = get_object_or_404(Profile, id=profile_id)
+    parent = get_object_or_404(Parent, profile_id=profile_id)
+
+    request.session['profile_id'] = profile.id
+    request.session['parent_id'] = parent.id
+
+    context = {
+        'profile': profile,
+        'profile_id': profile_id,
+        'user': request.user,
+        'name': parent.first_name
+    }
+
+    return render(request, 'common/index.html', context)
 
 
 def log_out(request):

@@ -4,11 +4,11 @@ body {
     padding: 0;
     background-color: #FAEBD7;
 }
-.container a {
+.menu-link {
     padding: 18px 10px;
     margin: 2px;
 }
-.container a, button {
+.menu-link, button {
     color: #483D8B;
     display: block;
     text-decoration: NONE;
@@ -20,8 +20,16 @@ body {
 button {
     padding: 10px;
 }
+.btn {
+    border-radius: 1.5em;
+}
 
-.container a:hover, button:hover {
+.menu-link:hover, button:hover {
+    background-color: #00294d;
+    color: aliceblue;
+}
+
+.nav-link:hover {
     background-color: #00294d;
     color: aliceblue;
 }
@@ -81,7 +89,7 @@ label {
 }
 
 input {
-    width: 100%;
+    width: 50%;
     padding: 8px;
     margin-bottom: 10px;
     box-sizing: border-box;

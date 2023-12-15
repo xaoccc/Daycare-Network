@@ -6,18 +6,18 @@
             {% if profile.is_authenticated %}
                 <legend class="home-legend">Welcome, {{ name }}</legend>
                 <div class="container">
-                    <a href="#">Find someone to look after your child</a>
-                    <a href="#">Find daycare job offers</a>
-                    <a href="#">Find a profile</a>
-                    <a href="#">Show all users</a>
+                    <a class="menu-link" href="#">Find someone to look after your child</a>
+                    <a class="menu-link" href="#">Find daycare job offers</a>
+                    <a class="menu-link" href="#">Find a profile</a>
+                    <a class="menu-link" href="#">Show all users</a>
                 </div>
             {% else %}
                 <legend class="home-legend">Welcome!</legend>
                 <div class="container">
-                    <a href="{% url 'register' %}">Create New User</a>
-                    <a href="{% url 'login' %}">Log In</a>
+                    <a class="menu-link" href="{% url 'register' %}">Create New User</a>
+                    <a class="menu-link" href="{% url 'login' %}">Log In</a>
                     {% load socialaccount %}
-                    <a href="{% provider_login_url 'google' %}?next=/">Google Login</a>
+                    <a class="menu-link" href="{% provider_login_url 'google' %}?next=/">Google Login</a>
                 </div>
             {% endif %}
 

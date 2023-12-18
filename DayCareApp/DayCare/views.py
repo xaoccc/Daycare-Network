@@ -181,6 +181,19 @@ def password_edit(request):
 
     return render(request, 'common/password_edit.html', context)
 
+def user_data(request):
+    profiles = Profile.objects.all()
+    parents = Parent.objects.all()
+
+
+    context = {
+        'profiles': profiles,
+        'parents': parents
+    }
+
+    return render(request, 'common/all_users.html', context)
+
+
 
 
 

@@ -1,0 +1,17 @@
+{% extends 'common/base.html' %}
+{% block content %}
+    <div class="container">
+    <div class="d-flex flex-row">
+            {% for parent in parents %}
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-action">Username: <a href="#">{{ parent.profile.username }}</a></li>
+                    <li class="list-group-item list-group-item-action">Name: {{ parent.first_name }} {{ parent.last_name }}</li>
+                    <li class="list-group-item list-group-item-action">Age: {{ parent.age }}</li>
+                    <li class="list-group-item list-group-item-action">Gender: {{ parent.gender }}</li>
+                    <li class="list-group-item list-group-item-action">Rating: {{ parent.rating }}</li>
+                </ul>
+            {% endfor %}
+    </div>
+    </div>
+
+{% endblock %}

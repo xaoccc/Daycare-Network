@@ -51,8 +51,10 @@ INSTALLED_APPS = [
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
         "SCOPE": ["profile", "email"],
-        "AUTH_PARAMS": {"access_type": "online"}
-    }
+        "AUTH_PARAMS": {"access_type": "online"},
+        'redirect_uri': 'http://localhost:8000/accounts/google/login/callback/'
+    },
+
 }
 
 MIDDLEWARE = [
@@ -72,7 +74,7 @@ AUTH_USER_MODEL = "DayCare.Profile"
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.socialaccount.auth_backends.AuthenticationBackend'
+    'allauth.account.auth_backends.AuthenticationBackend'
 ]
 
 LOGIN_REDIRECT_URL = "/"

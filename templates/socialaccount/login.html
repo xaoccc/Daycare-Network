@@ -18,9 +18,9 @@
             <h1>Sign In Via Google  </h1>
             <p>You are about to sign in using a third-party account from Google. </p>
             <form method="post" action="">
-
                 <input type="hidden" name="csrfmiddlewaretoken"
                        value="MhLySbVOXclBzyAdWA8HzRMbXbHPzduImHTljcb1cdtyuUanIk8ydSIk3L2YHYuI">
+                {% csrf_token %}
                 <button type="submit">Continue</button>
 
             </form>

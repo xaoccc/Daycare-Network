@@ -184,8 +184,6 @@ def password_edit(request):
 def user_data(request):
     profiles = Profile.objects.all()
     parents = Parent.objects.all()
-
-
     context = {
         'profiles': profiles,
         'parents': parents
@@ -256,6 +254,24 @@ def register_offer(request):
     }
     return render(request, 'registration/register_offer.html', context)
 
+
+def delete_user(request):
+    try:
+        profile_id = request.session.get('profile_id')
+        profile = get_object_or_404(Profile, id=profile_id)
+        parent = Parent.objects.get(profile_id=profile_id)
+        profile.delete()
+        parent.delete()
+        return render(request, 'common/index.html')
+    except Profile.DoesNotExist:
+        # Handle the case where the profile does not exist
+        return render(request, 'common/error.html', {'error_message': 'Profile not found'})
+    except Parent.DoesNotExist:
+        # Handle the case where the parent does not exist
+        return render(request, 'common/error.html', {'error_message': 'Parent not found'})
+    except Exception as e:
+        # Handle other exceptions (e.g., database errors) more gracefully
+        return render(request, 'common/error.html', {'error_message': str(e)})
 
 
 

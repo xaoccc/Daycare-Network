@@ -16,10 +16,11 @@ Steps in development:
 6.4. Implement password hash
 6.5. Customize each user homepage template
 7. Add settings section, where each user can edit his/her login or personal information
-8. Add seach panels  
+8. Add search panels  
 8.1. Search panel for daycare services (find service)  
 8.2. Search panel for daycare offers (find job)
 9. Add change username/password options
-10. Add edit user data option
-11. Add delete user
-12. Add search/filter panel
+10. Add edit user data functionality
+11. Add delete user functionality
+12. Add display all users functionality
+13. Add create new offer functionality

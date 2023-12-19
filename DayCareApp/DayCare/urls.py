@@ -15,4 +15,5 @@ urlpatterns = (
     path('services/', views.services, name='services'),
     path('offers/', views.offers, name='offers'),
     path('register-offer/', views.register_offer, name='register_offer'),
+    path('deleted/', views.delete_user, name='delete_user'),
 )

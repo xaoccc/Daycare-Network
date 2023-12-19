@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from django.forms.widgets import PasswordInput
 from django.core.validators import MinLengthValidator, MinValueValidator
 from DayCareApp.DayCare.validators import password_validator, name_validator
-from DayCareApp.DayCare.models import Profile
+from DayCareApp.DayCare.models import Profile, Offers, Location
 
 
 class RegisterUserForm(forms.Form):
@@ -44,4 +44,26 @@ class PasswordEditForm(forms.Form):
     password = forms.CharField(label='Enter new password:', required=True, widget=PasswordInput(), validators=[MinLengthValidator(8, "Password must be at least 8 characters long!"), password_validator])
 
 
+class RegisterOfferForm(forms.ModelForm):
+    class Meta:
+        model = Offers
+        fields = ['min_rating', 'price_per_hour']
+
+    # You can add additional form validation if needed
+    def clean_min_rating(self):
+        min_rating = self.cleaned_data.get('min_rating')
+        if min_rating is not None and (min_rating < 0 or min_rating > 10):
+            raise forms.ValidationError("Rating must be between 0 and 10.")
+        return min_rating
+
+    def clean_price_per_hour(self):
+        price_per_hour = self.cleaned_data.get('price_per_hour')
+        if price_per_hour is not None and (price_per_hour < 0 or price_per_hour > 900):
+            raise forms.ValidationError("Price must be between 0 and 900.")
+        return price_per_hour
+
+class RegisterLocationForm(forms.ModelForm):
+    class Meta:
+        model = Location
+        fields = ['location_name', 'hospitals', 'schools']
 

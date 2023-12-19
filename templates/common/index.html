@@ -6,6 +6,7 @@
             {% if profile.is_authenticated %}
                 <legend class="home-legend">Welcome, {{ name }}</legend>
                 <div class="container">
+                    <a class="menu-link" href="{% url 'register_offer' %}">Register an offer</a>
                     <a class="menu-link" href="#">Find someone to look after your child</a>
                     <a class="menu-link" href="#">Find daycare job offers</a>
                     <a class="menu-link" href="#">Find a profile</a>

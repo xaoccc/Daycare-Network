@@ -1,0 +1,19 @@
+{% extends 'common/base.html' %}
+{% block content %}
+    <div class="container">
+
+        <form method="POST" action="{% url 'register_offer' %}">
+            <fieldset>
+                <legend>Register a new offer:</legend>
+                <div class="container">
+                    {% csrf_token %}
+                    {{ offer_form }}
+                    {{ location_form }}
+
+                    <button class="add-user" type="submit">Create Offer</button>
+                </div>
+            </fieldset>
+        </form>
+
+     </div>
+{% endblock %}

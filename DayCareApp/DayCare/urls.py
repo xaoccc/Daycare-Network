@@ -12,4 +12,7 @@ urlpatterns = (
     path('settings/username_edit/', views.username_edit, name='username_edit'),
     path('settings/password_edit/', views.password_edit, name='password_edit'),
     path('users/', views.user_data, name='user_data'),
+    path('services/', views.services, name='services'),
+    path('offers/', views.offers, name='offers'),
+    path('register-offer/', views.register_offer, name='register_offer'),
 )

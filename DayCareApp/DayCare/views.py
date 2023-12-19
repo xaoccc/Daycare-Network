@@ -1,8 +1,8 @@
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
-from DayCareApp.DayCare.models import Profile, Parent
-from DayCareApp.DayCare.forms import RegisterUserForm, LoginForm, UsernameEditForm, PasswordEditForm
+from DayCareApp.DayCare.models import Profile, Parent, Offers, Location
+from DayCareApp.DayCare.forms import RegisterUserForm, LoginForm, UsernameEditForm, PasswordEditForm, RegisterOfferForm, RegisterLocationForm
 from django.contrib.auth.hashers import check_password, make_password
 
 
@@ -192,6 +192,71 @@ def user_data(request):
     }
 
     return render(request, 'common/all_users.html', context)
+
+
+def services(request):
+    profiles = Profile.objects.all()
+    parents = Parent.objects.all()
+
+    context = {
+        'profiles': profiles,
+        'parents': parents
+    }
+    return render(request, 'common/services.html', context)
+
+
+def offers(request):
+    profiles = Profile.objects.all()
+    parents = Parent.objects.all()
+
+    context = {
+        'profiles': profiles,
+        'parents': parents
+    }
+    return render(request, 'common/offers.html', context)
+
+
+def register_offer(request):
+    profile_id = request.session.get('profile_id')
+    profile = get_object_or_404(Profile, id=profile_id)
+    parent = Parent.objects.get(profile_id=profile_id)
+
+    if request.method == 'GET':
+        offer_form = RegisterOfferForm()
+        location_form = RegisterLocationForm()
+
+    else:
+        offer_form = RegisterOfferForm(request.POST)
+        location_form = RegisterLocationForm(request.POST)
+
+        if offer_form.is_valid() and location_form.is_valid():
+            min_rating = offer_form.cleaned_data['min_rating']
+            price_per_hour = offer_form.cleaned_data['price_per_hour']
+
+            location = location_form.save()
+            offer = Offers(
+                min_rating=min_rating,
+                price_per_hour=price_per_hour,
+                location_ptr_id=location.id,
+                location_name=location.location_name,
+                hospitals=location.hospitals,
+                schools=location.schools
+            )
+            offer.save()
+
+            parent.parent_offer_id = offer.id
+            parent.save()
+
+            return redirect('login_index')
+
+    context = {
+        'profile': profile,
+        'offer_form': offer_form,
+        'location_form': location_form
+    }
+    return render(request, 'registration/register_offer.html', context)
+
+
 
 
 

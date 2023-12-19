@@ -40,8 +40,8 @@ class Location(models.Model):
     )
 
     location_name = models.CharField(choices=NEIGHBOURHOODS)
-    hospitals = models.BooleanField()
-    schools = models.BooleanField()
+    hospitals = models.BooleanField(default=False)
+    schools = models.BooleanField(default=False)
 
 class Offers(Location, models.Model):
     min_rating = models.DecimalField(max_digits=3, decimal_places=1, validators=[

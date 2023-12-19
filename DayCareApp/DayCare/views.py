@@ -56,7 +56,8 @@ def login_view(request):
             if check_password(password, profile.password):
 
                 login(request, profile, backend='django.contrib.auth.backends.ModelBackend')
-                return redirect('login_index', profile_id=profile.id)
+                request.session['profile_id'] = profile.id
+                return redirect('login_index')
 
             else:
                 form = LoginForm()
@@ -84,12 +85,11 @@ def login_view(request):
     return render(request, 'registration/login.html', context)
 
 
-def login_index(request, profile_id):
+def login_index(request):
+    profile_id = request.session.get('profile_id')
+
     profile = get_object_or_404(Profile, id=profile_id)
     parent = get_object_or_404(Parent, profile_id=profile_id)
-
-    request.session['profile_id'] = profile.id
-    request.session['parent_id'] = parent.id
 
     context = {
         'profile': profile,

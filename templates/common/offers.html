@@ -1,0 +1,24 @@
+{% extends 'common/base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="d-flex flex-row">
+            {% if not available_job_offers %}
+                <div>No available job offers at the moment!</div>
+            {% else %}
+                {% for offer in available_job_offers %}
+                    {% if offer.parent %}
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-action">Price per hour: {{ offer.price_per_hour }}</li>
+                            <li class="list-group-item list-group-item-action">Minimal rating: {{ offer.min_rating }}</li>
+                            <li class="list-group-item list-group-item-action">Location: {{ offer.location_ptr.location_name }}</li>
+                            <li class="list-group-item list-group-item-action">Hospital nearby: {% if offer.location_ptr.hospitals %} Yes {% else %} No {% endif %}</li>
+                            <li class="list-group-item list-group-item-action">School nearby: {% if offer.location_ptr.schools %} Yes {% else %} No {% endif %}</li>
+                            <li class="list-group-item list-group-item-action">Parent name: {{ offer.parent.first_name }} {{ offer.parent.last_name }}</li>
+                            <li class="list-group-item list-group-item-action">Profile name: {{ offer.parent.profile }}</li>
+                        </ul>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

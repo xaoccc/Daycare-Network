@@ -273,6 +273,23 @@ def delete_user(request):
         # Handle other exceptions (e.g., database errors) more gracefully
         return render(request, 'common/error.html', {'error_message': str(e)})
 
+def find_offers(request):
+    profile_id = request.session.get('profile_id')
+    profile = get_object_or_404(Profile, id=profile_id)
+    parent = Parent.objects.get(profile_id=profile_id)
+    # find all valid job offers, including parent and location info
+    available_job_offers = Offers.objects.prefetch_related('parent').filter(min_rating__lte=parent.rating).exclude(parent__id=parent.id)
+
+    context = {
+        'profile': profile,
+        'available_job_offers': available_job_offers,
+        'profile_id': profile_id
+    }
+
+
+    return render(request, 'common/offers.html', context)
+
+
 
 
 

@@ -1,8 +1,8 @@
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
-from DayCareApp.DayCare.models import Profile, Parent, Offers, Location
-from DayCareApp.DayCare.forms import RegisterUserForm, LoginForm, UsernameEditForm, PasswordEditForm, RegisterOfferForm, RegisterLocationForm
+from DayCareApp.DayCare.models import Profile, Parent, Offers, Location, Child
+from DayCareApp.DayCare.forms import RegisterUserForm, LoginForm, UsernameEditForm, PasswordEditForm, RegisterOfferForm, RegisterLocationForm, RegisterChildForm
 from django.contrib.auth.hashers import check_password, make_password
 from psycopg2._psycopg import Decimal
 
@@ -304,6 +304,34 @@ def find_offers(request):
         'profile_id': profile_id
     }
     return render(request, 'common/offers.html', context)
+
+def register_child(request):
+    profile_id = request.session.get('profile_id')
+    profile = get_object_or_404(Profile, id=profile_id)
+    parent = Parent.objects.get(profile_id=profile_id)
+
+    if request.method == 'GET':
+        form = RegisterChildForm()
+
+    else:
+        form = RegisterChildForm(request.POST)
+        if form.is_valid():
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            age = form.cleaned_data['age']
+            has_special_needs = form.cleaned_data['has_special_needs']
+
+            child = Child(first_name=first_name, last_name=last_name, age=age, has_special_needs=has_special_needs, parent=parent)
+            child.save()
+
+            return redirect('login_index')
+
+    context = {
+        'profile': profile,
+        'form': form
+    }
+
+    return render(request, 'registration/register_child.html', context)
 
 
 

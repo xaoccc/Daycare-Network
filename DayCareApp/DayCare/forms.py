@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from django.forms.widgets import PasswordInput
 from django.core.validators import MinLengthValidator, MinValueValidator
 from DayCareApp.DayCare.validators import password_validator, name_validator
-from DayCareApp.DayCare.models import Profile, Offers, Location
+from DayCareApp.DayCare.models import Profile, Offers, Location, Child
 
 
 class RegisterUserForm(forms.Form):
@@ -70,4 +70,10 @@ class RegisterLocationForm(forms.ModelForm):
     class Meta:
         model = Location
         fields = ['location_name', 'hospitals', 'schools']
+
+
+class RegisterChildForm(forms.ModelForm):
+    class Meta:
+        model = Child
+        fields = ['first_name', 'last_name', 'age', 'has_special_needs']
 

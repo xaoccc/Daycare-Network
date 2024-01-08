@@ -17,4 +17,5 @@ urlpatterns = (
     path('register-offer/', views.register_offer, name='register_offer'),
     path('deleted/', views.delete_user, name='delete_user'),
     path('job_offers/', views.find_offers, name='find_offers'),
+    path('register_child/', views.register_child, name='register_child')
 )

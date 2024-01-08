@@ -1,0 +1,18 @@
+{% extends 'common/base.html' %}
+{% block content %}
+    <div class="container">
+
+        <form method="POST" action="{% url 'register_child' %}">
+            <fieldset>
+                <legend>Register a child:</legend>
+                <div class="container">
+                    {% csrf_token %}
+                    {{ form }}
+
+                    <button class="add-user" type="submit">Submit child data</button>
+                </div>
+            </fieldset>
+        </form>
+
+     </div>
+{% endblock %}

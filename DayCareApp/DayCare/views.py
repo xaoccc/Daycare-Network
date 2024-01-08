@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from DayCareApp.DayCare.models import Profile, Parent, Offers, Location
 from DayCareApp.DayCare.forms import RegisterUserForm, LoginForm, UsernameEditForm, PasswordEditForm, RegisterOfferForm, RegisterLocationForm
 from django.contrib.auth.hashers import check_password, make_password
+from psycopg2._psycopg import Decimal
 
 
 def index(request):
@@ -183,9 +184,13 @@ def password_edit(request):
     return render(request, 'common/password_edit.html', context)
 
 def user_data(request):
+    profile_id = request.session.get('profile_id')
+    profile = get_object_or_404(Profile, id=profile_id)
+
     profiles = Profile.objects.all()
     parents = Parent.objects.all()
     context = {
+        'profile': profile,
         'profiles': profiles,
         'parents': parents
     }
@@ -274,20 +279,30 @@ def delete_user(request):
         # Handle other exceptions (e.g., database errors) more gracefully
         return render(request, 'common/error.html', {'error_message': str(e)})
 
+
 def find_offers(request):
     profile_id = request.session.get('profile_id')
     profile = get_object_or_404(Profile, id=profile_id)
     parent = Parent.objects.get(profile_id=profile_id)
+
+    if not parent.parent_offer:
+        context = {
+            'profile': profile,
+            'profile_id': profile_id,
+            'error_message': 'Please create a job offer first. We have no min rating criteria, so we can display the available job offers.'
+        }
+
+        return render(request, 'common/error.html', context)
+
     # find all valid job offers, including parent and location info
-    available_job_offers = Offers.objects.prefetch_related('parent').filter(min_rating__lte=parent.rating).exclude(parent__id=parent.id)
+    available_job_offers = Offers.objects.select_related('parent').filter(
+        parent__rating__gte=parent.parent_offer.min_rating).exclude(parent__id=parent.id)
 
     context = {
         'profile': profile,
         'available_job_offers': available_job_offers,
         'profile_id': profile_id
     }
-
-
     return render(request, 'common/offers.html', context)
 
 

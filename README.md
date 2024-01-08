@@ -1,7 +1,15 @@
 # Daycare-Network
-An app, focused on delivering two ways daycare services. Parents can take care of other parents' children.
+### An app, focused on delivering two-way daycare services. Parents can take care of other parents' children.
 v. 1.0.0.
-Steps in development:
+Setup:
+1. Install the packages from requirements.txt  
+2. Setup database  
+3. Migrate  
+4. Make sure the site id in database is the same as the one in setting.py (for the google login)  
+5. Run server  
+6. Enjoy! :)  
+
+### Steps in development:  
 1. Setup settings.py, create database
 2. Setup urls.py
 3. Create the basic models in models.py  
@@ -24,3 +32,4 @@ Steps in development:
 11. Add delete user functionality
 12. Add display all users functionality
 13. Add create new offer functionality
+14. Fix register new user functionality - add error message when username is already taken.

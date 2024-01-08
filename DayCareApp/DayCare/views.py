@@ -18,7 +18,6 @@ def register(request):
         form = RegisterUserForm(request.POST)
 
         if form.is_valid():
-
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             first_name = form.cleaned_data['first_name']
@@ -36,13 +35,15 @@ def register(request):
                 return redirect('index')
 
             else:
-                return render(request, 'registration/register.html')
-
+                context = {
+                    'form': form
+                }
+                return render(request, 'registration/register.html', context)
 
     context = {
         'form': form
-
     }
+
     return render(request, 'registration/register.html', context)
 
 

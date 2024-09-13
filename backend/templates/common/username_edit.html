@@ -4,7 +4,7 @@
     <section class="register-user">
         <legend class="home-legend">Change Username</legend>
             <div class="container">
-                <form method="POST" action="{% url 'username_edit' %}">
+                <form method="POST" action="{% url 'username_edit' profile.id %}">
                     <fieldset>
 
                     <p>Old username: {{ profile.username }}</p>

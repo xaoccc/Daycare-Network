@@ -110,10 +110,10 @@ def log_out(request):
 
 def settings(request):
     profile_id = request.session.get('profile_id')
-    parent_id = request.session.get('parent_id')
+    parent_id = request.session.get('id')
 
     profile = get_object_or_404(Profile, id=profile_id)
-    parent = get_object_or_404(Parent, id=parent_id)
+    parent = Parent.objects.get(profile_id=profile_id)
 
     context = {
         'profile': profile,
@@ -123,8 +123,8 @@ def settings(request):
     return render(request, 'common/settings.html', context)
 
 
-def username_edit(request):
-    profile_id = request.session.get('profile_id')
+def username_edit(request, profile_id):
+
     profile = get_object_or_404(Profile, id=profile_id)
 
     if request.method == 'GET':
@@ -139,7 +139,7 @@ def username_edit(request):
             if username not in Profile.objects.values_list('username', flat=True):
                 Profile.objects.filter(username=profile.username).update(username=username)
                 messages.success(request, 'Username updated successfully.')
-                return redirect('login_index', profile_id=profile.id)
+                return redirect('login_index')
             else:
                 messages.error(request, "Username already exists!")
 
@@ -165,7 +165,7 @@ def password_edit(request):
             Profile.objects.filter(password=profile.password).update(password=make_password(password))
 
             messages.success(request, 'Password updated successfully.')
-            return redirect('login_index', profile_id=profile.id)
+            return redirect('login_index')
 
         messages.error(request, 'Your password must be at least 8 characters lond and must contain digits and letters, at least one capital and one small letter.')
 

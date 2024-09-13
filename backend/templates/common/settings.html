@@ -8,7 +8,7 @@
             <div class="container">
                 <p>Username: {{ profile.username }}</p>
                 <p>First name: {{ parent.first_name }}</p>
-                <a href="{% url 'username_edit' %}">Change username</a>
+                <a href="{% url 'username_edit' profile.id %}">Change username</a>
                 <a href="{% url 'password_edit' %}">Change password</a>
                 <a href="#">Update personal info</a>
             </div>
